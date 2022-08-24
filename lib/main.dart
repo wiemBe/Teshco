@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:teshco/home_page.dart';
 
+import 'drawer_class.dart';
 import 'home_page.dart';
 
 void main() {
@@ -16,9 +18,8 @@ class MyApp extends StatelessWidget {
       title: 'Teshco',
       theme: ThemeData.dark().copyWith(
         appBarTheme: const AppBarTheme(centerTitle: true,backgroundColor: Colors.transparent,elevation: 0)
-
       ),
-      home:  Button(),
+      home:  TwoDrawers()
     );
   }
 }
