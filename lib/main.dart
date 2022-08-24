@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:teshco/home_page.dart';
+import 'package:teshco/counter.dart';
 
-import 'drawer_class.dart';
+
+import 'avatar_test.dart';
 import 'home_page.dart';
+import 'counter.dart';
 
 void main() {
   runApp(const MyApp());
