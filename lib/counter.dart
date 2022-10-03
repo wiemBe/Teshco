@@ -20,20 +20,22 @@ class _CountDownState extends State<CountDown> {
   @override
   void initState() {
     super.initState();
-    startTimer();
+    if (!mounted) {
+      startTimer();
+    }
     reset();
   }
-  void reset(){
-    if (isCountdown){
-    setState(() => duration = countdownDuration);
-    } else{
+
+  void reset() {
+    if (isCountdown) {
+      setState(() => duration = countdownDuration);
+    } else {
       setState(() => duration = Duration());
     }
-
   }
 
   void addDecreaseTime() {
-    final addSeconds = isCountdown ? -1:1;
+    final addSeconds = isCountdown ? -1 : 1;
     setState(() {
       final seconds = duration.inSeconds + addSeconds;
       duration = Duration(seconds: seconds);
@@ -41,7 +43,9 @@ class _CountDownState extends State<CountDown> {
   }
 
   void startTimer() {
-    timer = Timer.periodic(Duration(seconds: 1), (_) => addDecreaseTime());
+    if (!mounted) {
+      timer = Timer.periodic(Duration(seconds: 1), (_) => addDecreaseTime());
+    }
   }
 
   @override
@@ -59,25 +63,22 @@ class _CountDownState extends State<CountDown> {
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         buildTimeCard(time: hours, header: "hours"),
-        buildTimeCard(time: minutes,header: "minutes"),
+        buildTimeCard(time: minutes, header: "minutes"),
         const SizedBox(width: 8),
         buildTimeCard(time: seconds, header: "seconds")
       ],
     );
   }
-  Widget buildTimeCard({required String time, required String header}) => 
-  Container(
-    decoration: BoxDecoration(
-      color: Colors.white,
-      borderRadius:  BorderRadius.circular(10),
-    ),
-  child :Text(
-     time ,
-    style: TextStyle(
-      fontWeight: FontWeight.bold,
-      color: Colors.black,
-      fontSize: 30
-    ),
-  )
-);
+
+  Widget buildTimeCard({required String time, required String header}) =>
+      Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Text(
+            time,
+            style: TextStyle(
+                fontWeight: FontWeight.bold, color: Colors.black, fontSize: 30),
+          ));
 }

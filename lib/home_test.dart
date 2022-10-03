@@ -1,70 +1,100 @@
-import 'package:flutter/material.dart';
+import 'dart:ffi';
 import 'dart:async';
+import 'package:flutter/material.dart';
+import 'package:flutter/src/foundation/key.dart';
+import 'package:flutter/src/widgets/framework.dart';
+import 'package:teshco/shared/list_widget.dart';
+import 'package:teshco/shared/listitem.dart';
 
-class TwoDrawers extends StatelessWidget {
+class HomePage extends StatefulWidget {
+  const HomePage({Key? key}) : super(key: key);
+
   @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("TESCHO"),
-          leading: Builder(
+  State<HomePage> createState() => _HomePageState();
+}
+final String _title = "XCVXCV";
+class _HomePageState extends State<HomePage>
+    with SingleTickerProviderStateMixin {
+  
+
+  List<ListItem> listTiles = [
+    ListItem("$_title", "admin"),
+    ListItem("lorem ipsum", "lorem ipsumasd"),
+    ListItem("lorem ipsum", "lorem ipsumasd"),
+    ListItem("lorem ipsum", "lorem ipsumasd"),
+    ListItem("lorem ipsum", "lorem ipsumasd"),
+    ListItem("lorem ipsum", "lorem ipsumasd"),
+    ListItem("lorem ipsum", "lorem ipsumasd"),
+    ListItem("lorem ipsum", "lorem ipsumasd"),
+    ListItem("lorem ipsum", "lorem ipsumasd"),
+    ListItem("lorem ipsum", "lorem ipsumasd"),
+  ];
+
+  @override
+  Widget build(BuildContext context) => Scaffold(
+      appBar: AppBar(
+        title: Text("TESHCO"),
+        leading: Builder(
+          builder: (context) {
+            return IconButton(
+              icon: Icon(Icons.lock_clock_outlined),
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ),
+        actions: <Widget>[
+          Builder(
             builder: (context) {
               return IconButton(
-                icon: Icon(Icons.lock_clock_outlined),
+                icon: Icon(Icons.people_outline),
                 onPressed: () {
-                  Scaffold.of(context).openDrawer();
+                  Scaffold.of(context).openEndDrawer();
                 },
               );
             },
+          )
+        ],
+      ),
+      drawer: Drawer(
+        width: 100,
+        child: Container(
+          color: Color.fromARGB(255, 45, 67, 85),
+          child: const Center(
+            child: CountDown(),
           ),
-          actions: <Widget>[
-            Builder(
-              builder: (context) {
-                return IconButton(
-                  icon: Icon(Icons.people_outline),
-                  onPressed: () {
-                    Scaffold.of(context).openEndDrawer();
-                  },
+        ),
+      ),
+      endDrawer: Drawer(
+        width: 200,
+        child: Container(
+          color: Colors.transparent,
+          child: const Center(
+            child: Avatar(),
+          ),
+        ),
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(8.0),
+        child: Container(
+          child: ListView.builder(
+              itemCount: listTiles.length,
+              itemBuilder: (context, index) {
+                return InkWell(
+                  onTap: () {},
+                  child: listWidget(listTiles[index]),
                 );
-              },
-            )
-          ],
+              }),
         ),
-        drawer: Drawer(
-          width: 100,
-          child: Container(
-            color: Color.fromARGB(255, 45, 67, 85),
-            child: const Center(
-              child: CountDown(),
-            ),
-          ),
-        ),
-        endDrawer: Drawer(
-          width: 200,
-          child: Container(
-            color: Colors.transparent,
-            child: const Center(
-              child: Avatar(),
-            ),
-          ),
-        ),
-        body: Padding(
-          padding: EdgeInsets.all(8.0),
-          child: Container(
-            child: ListView(
-              
-            ),
-          ),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          items: const [
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "home"),
-            BottomNavigationBarItem(
-                icon: Icon(Icons.home), label: "old topics"),
-            BottomNavigationBarItem(icon: Icon(Icons.home), label: "profile")
-          ],
-        ));
-  }
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "home"),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "old topics"),
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: "profile")
+        ],
+      ));
 }
 
 class CountDown extends StatefulWidget {

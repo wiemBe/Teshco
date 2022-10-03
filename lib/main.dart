@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:teshco/counter.dart';
-
-
-import 'avatar_test.dart';
 import 'home_page.dart';
-import 'counter.dart';
+import 'home_test.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -21,7 +18,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData.dark().copyWith(
         appBarTheme: const AppBarTheme(centerTitle: true,backgroundColor: Colors.transparent,elevation: 0)
       ),
-      home:  TwoDrawers()
+      home:  HomePage()
     );
   }
 }
